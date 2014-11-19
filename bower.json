@@ -1,0 +1,34 @@
+{
+  "name": "frontend-base",
+  "version": "0.0.1",
+  "authors": [
+    "Sebastian Ibarguen <s@cognits.co>"
+  ],
+  "description": "starting point for ALL frontend projects. Includes mininum structure and tests.",
+  "main": "index.html",
+  "keywords": [
+    "template",
+    "boilerplate",
+    "frontend",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "license": "MIT",
+  "homepage": "www.cognits.co",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "dependencies": {
+    "angular": "~1.3.2",
+    "bootstrap": "~3.3.1"
+  }
+}

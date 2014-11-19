@@ -8,5 +8,12 @@ Deben usar Twitter Bootstrap! Esto significa que el sitio se deben ver bien en c
 3. El usuario debe poder entrar a la pagina, y poder filtrar las Tops tracks por: la cantidad de "playcounts", "duration", organizar en orden alfabeto y al revés.
 4. SE DEBEN ENFOCAR EN HACER SOLO LO QUE SE PIDE. Si quieren agregarle cosas adicionales DESPUES de terminar lo pedido, pueden hacerlo en otra "branch de git".
 
+
+## Detalles
+Aclarando posibles dudas,
+
+1. El diseño queda abierto, pero es importante recalcar que debe ser PROFESIONAL. Sugiero que miren los siguientes ejemplos. [ITUNES](https://www.apple.com/itunes/charts/songs/).  [Bilboard](http://www.billboard.com/charts/hot-100). (SIN LA PUBLICIDAD, solo enfocarse en el listado). Estos ejemplos son solo para referencia de diseño y no incluyen funcionalidades que estamos buscando como la filtración.
+2. No incluyan musica en el ```branch master```. Pueden hacer sus propios experimentos en otra ```branch```.
+
 ## Resumen
 Deben ingresar y registrarse a last.fm. Jalar las "chart.gettoptracks" y desplegarlas de forma profesional en una pagina. El usuario debe poder filtrar los resultados de distintas formas y el listado debe responder en acorde.
