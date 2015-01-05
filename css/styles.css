@@ -32,3 +32,40 @@ background-size: cover;
 .hr{
 	margin-top: -2.9%;
 }
+
+.canciones{
+	text-align: center;
+	color: white;
+	margin-left: 29%;
+	margin-top: 50px;
+}
+
+.ordered{
+	color: white;
+	background-color: #01A9DB;
+	border: #01A9DB;
+}
+
+.back{
+	color: white;
+	background-color: #01A9DB;
+	border: #01A9DB;
+}
+
+.playcounts{
+	color: white;
+	background-color: #01A9DB;
+	border: #01A9DB;
+}
+
+.duration{
+	color: white;
+	background-color: #01A9DB;
+	border: #01A9DB;
+}
+
+.del{
+	color: white;
+	background-color: #01A9DB;
+	border: #01A9DB;
+}

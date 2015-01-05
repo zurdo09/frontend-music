@@ -1,93 +1,137 @@
-// Javascript Code.
-$(document).ready(function(){
-jQuery(document).ready(function($) {
-$.ajax({
-url : "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=85b8c37b1a6be5182a5ed0549c4a7400&format=json",
-dataType : "jsonp",
-success : function(parsed_json) {
-for(var i = 0; i<50; i++){
-if (parsed_json["tracks"]["track"][i]["image"]){
-var imagen = parsed_json["tracks"]["track"][i]["image"][2]["#text"];
-}else{
-var imagen = "images/notfound.png";
-};
-$(".results").append("<div class=\"result span8\"><br><img class=\"albumImage img-polaroid\" src=\""+imagen+"\" align=\"right\"><span class=\"topNumber span1\">#"+(i+1)+"</span><div class=\"span4\"><span>Track: </span> "+parsed_json["tracks"]["track"][i]["name"]+"<br><span>Artist: </span> "+parsed_json["tracks"]["track"][i]["artist"]["name"]+"<br><span>Played: </span> "+parsed_json["tracks"]["track"][i]["playcount"]+" times!<br><span>Length: </span> "+parsed_json["tracks"]["track"][i]["duration"]+"</div></div><br>");
-};
-}
+song = [];
+artist = [];
+playcounts = [];
+duration = [];
+image = [];
+OrderList = [];
+OrderDuration = [];
+OrderPlayCount = [];
+image = [];
+urls = [];
+
+
+$(document).ready(function() {
+	$("[data-toggle=popover]")
+	.popover({html:true})
 });
-});
-var sortInput = document.getElementById("typeOrderID");
-var dataInput = document.getElementById("dataTypeID");
-$(".button").click(function(){
-$(".results").empty();
-var trackList = new Array(); //guardara los titulos de las canciones
-var artistList = new Array();//guardara los nombres de los artistas
-var imageList = new Array();//guardara las portadas de albums
-var playcountList = new Array(); //guardara la cantidad de veces reproducidas
-var durationList = new Array(); //guardara la duracion de la cancion
-var sortedList = new Array();//guardara y ordenara las variables de alguna lista
-var sortedIndex = new Array();//guardara los index
-var orderValue = sortInput.options[sortInput.selectedIndex].value;
-var dataValue = dataInput.options[dataInput.selectedIndex].value;
-if (orderValue!="nothing" && dataValue!="nothing"){
+
 jQuery(document).ready(function($) {
-$.ajax({
-url : "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=85b8c37b1a6be5182a5ed0549c4a7400&format=json",
-dataType : "jsonp",
-success : function(parsed_json) {
-//Leer datos y meterlos a una lista
-for (var i =0; i<50;i++){
-trackList.push(parsed_json["tracks"]["track"][i]["name"]);
-artistList.push(parsed_json["tracks"]["track"][i]["artist"]["name"]);
-playcountList.push(parsed_json["tracks"]["track"][i]["playcount"]);
-durationList.push(parsed_json["tracks"]["track"][i]["duration"]);
-if (parsed_json["tracks"]["track"][i]["image"]){
-imageList.push(parsed_json["tracks"]["track"][i]["image"][2]["#text"]);
-}else{
-imageList.push("images/notfound.png");
-}
-};
-if (dataValue=="duration"){
-sortedList = durationList.slice(0).sort(function(a,b) { return a - b; }); //crear un duplicado sin que quede conectado al original
-for (var i=0; i<durationList.length ; i++){
-sortedIndex.push(durationList.indexOf(sortedList[i]));
-};
-}else if(dataValue=="playcounts"){
-sortedList = playcountList.slice(0).sort(function(a,b) { return a - b; });
-for (var i=0; i<playcountList.length ; i++){
-sortedIndex.push(playcountList.indexOf(sortedList[i]));
-};
-}else if(dataValue=="tracksname"){
-sortedList = trackList.slice(0).sort();
-for (var i=0; i<trackList.length ; i++){
-sortedIndex.push(trackList.indexOf(sortedList[i]));
-};
-}else if(dataValue=="artistname"){
-sortedList = artistList.slice(0).sort();
-for (var i=0; i<artistList.length ; i++){
-sortedIndex.push(artistList.indexOf(sortedList[i]));
-};
-};
-if (orderValue=="asc"){
-for (var i =0; i<50;i++){
-var index = sortedIndex[i];
-$(".results").append("<div class=\"result span8\"><br><img class=\"albumImage img-polaroid\" src=\""+imageList[index]+"\" align=\"right\"><span class=\"topNumber span1\">#"+(i+1)+"</span><div class=\"span4\"><span>Track: </span> "+trackList[index]+"<br><span>Artist: </span> "+artistList[index]+"<br><span>Played: </span> "+playcountList[index]+" times!<br><span>Length: </span> "+durationList[index]+"</div></div><br>");
-};
-}else if(orderValue=="des"){
-for (var i =49; i>=0;i--){
-var index = sortedIndex[i];
-$(".results").append("<div class=\"result span8\"><br><img class=\"albumImage img-polaroid\" src=\""+imageList[index]+"\" align=\"right\"><span class=\"topNumber span1\">#"+(i+1)+"</span><div class=\"span4\"><span>Track: </span> "+trackList[index]+"<br><span>Artist: </span> "+artistList[index]+"<br><span>Played: </span> "+playcountList[index]+" times!<br><span>Length: </span> "+durationList[index]+"</div></div><br>");
-};
-};
-}//success
-});//ajax
-}); //jquery ready
-}else if(orderValue=="nothing" && dataValue=="nothing"){
-alert("Error! You must choose a data to show and the sorting mode before.");
-}else if(orderValue=="nothing" && dataValue!="nothing"){
-alert("Error! You forgot to choose the sorting mode.");
-}else if(orderValue!="nothing" && dataValue=="nothing"){
-alert("Error! You forgot to choose the data to show.");
-};
-});//onchange
-});//document ready
+  $.ajax({
+  url : "http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=85b8c37b1a6be5182a5ed0549c4a7400&format=json",
+  dataType : "jsonp",
+    success : function(parsed_json) {
+
+      for (var i = 0; i <= 50; i++) {
+	OrderList.push(parsed_json["tracks"]["track"][i]["name"])
+        OrderDuration.push(parsed_json["tracks"]["track"][i]["duration"])
+        OrderPlayCount.push(parsed_json["tracks"]["track"][i]["playcount"])
+       	song.push(parsed_json['tracks']['track'][i]['name'])
+        artist.push(parsed_json['tracks']['track'][i]['artist']['name'])
+	duration.push(parsed_json["tracks"]["track"][i]["duration"])
+        playcounts.push(parsed_json["tracks"]["track"][i]["playcount"])
+	urls.push(parsed_json["tracks"]["track"][i]["artist"]["url"])
+
+        try {image.push(parsed_json["tracks"]["track"][i]["image"][2]["#text"])}
+        catch(err){image.push("")}
+
+        $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+      };
+    }
+  });
+});
+
+
+
+$(document).ready(function() {
+  function az(a, b){
+    var A = a.toLowerCase();
+    var B = b.toLowerCase();
+    if (A < B){
+      return -1;
+    }else if (A > B){
+     return  1;
+    }else{
+     return 0;
+    }
+  };
+
+  function za(a, b){
+      var A = a.toLowerCase();
+      var B = b.toLowerCase();
+      if (A > B){
+        return -1;
+      }else if (A < B){
+       return  1;
+      }else{
+       return 0;
+      }
+  };
+
+  function order(a, b){
+    a = a/60
+    b = b/60
+    if (a<b) {return 1}else{return 0};
+  };
+
+  $(".del").click(function(){
+    $(".canciones").empty();
+    OrderList.sort(az);
+
+    for (var i = 0; i <50; i++) {
+        var play = "http://img268.imageshack.us/img268/4378/buttonplayc.png"
+        $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+    };
+  });
+
+  $(".ordered").click(function(){
+    $(".canciones").empty();
+    OrderList.sort(az);
+
+    for (var x = 0; x <50; x++) {
+      for (var i = 0; i <50; i++) {
+        if (OrderList[x] === song[i]) {
+          $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+        };
+      };
+    };
+  });
+
+  $(".back").click(function(){
+    $(".canciones").empty();
+    OrderList.sort(za);
+
+    for (var x = 0; x <50; x++) {
+      for (var i = 0; i <50; i++) {
+        if (OrderList[x] === song[i]) {
+          var play = "http://img268.imageshack.us/img268/4378/buttonplayc.png"
+          $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+        };
+      };
+    };
+  });
+
+  $(".duration").click(function(){
+    $(".canciones").empty();
+    OrderDuration.sort(order);
+    for (var x = 0; x <50; x++) {
+      for (var i = 0; i <50; i++) {
+        if (OrderDuration[x] === duration[i]) {
+          $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+        };
+      };
+    };
+  });
+
+  $(".playcounts").click(function(){
+    $(".canciones").empty();
+    OrderPlayCount.sort(order);
+    for (var x = 0; x <50; x++) {
+      for (var i = 0; i <50; i++) {
+        if (OrderPlayCount[x] === playcounts[i]) {
+          $(".canciones").append("<tr>" + "<td>" + (i+1) + "</td>" + "<td class='name'>" + song[i] + "</td>" + "<td>" + "<img src=\""+image[i]+"\" class = 'image' height='50px'>" + "</td>" + "<td>" + "<a href=\""+urls[i]+"\">" + artist[i] + "</a>" + "</td>" + "<td>" + playcounts[i] + "</td>" + "<td>" + (duration[i]/60).toFixed(2) + "</td>" + "</tr>");
+        };
+      };
+    };
+  });
+
+});
